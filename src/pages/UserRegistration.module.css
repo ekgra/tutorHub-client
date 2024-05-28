@@ -1,13 +1,14 @@
 .registrationForm {
   text-align: center;
   /* display: flex; */
-  margin: 10rem 10%;
+  margin: 2rem 30%;
   padding: 1rem;
   /* justify-content:space-between */
   align-items: center;
 }
 
 .error {
+  margin-left: 1rem;
   text-align: center;
 }
 
@@ -37,17 +38,18 @@ label {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   font-weight: bold;
+  text-align: center;
 }
 
 .button:hover {
   background-color: #8c6cf7;
 }
 
-.error {
+/* .error {
   text-align: center;
-  /* display: flex; */
+  display: flex;
   margin: 3rem 10%;
   padding: 1rem;
   justify-content: space-between;
   align-items: center;
-}
+} */

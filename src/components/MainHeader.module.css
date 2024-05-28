@@ -34,3 +34,8 @@
   .button:hover {
     background-color: #8c6cf7;
   }
+
+  .loginUser {
+    font-size: x-small;
+    font-family: monospace;
+  }
