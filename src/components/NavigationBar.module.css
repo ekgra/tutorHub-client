@@ -1,0 +1,9 @@
+.loginText {
+    font-size: small;
+    font-family: monospace;
+}
+
+.loginButtonImage {
+    width: '50%';
+    margin-right: 5px;
+}

@@ -1,14 +1,10 @@
-* {
-  box-sizing: border-box;
-}
-
-:root {
+body {
   min-height: 100vh;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  background-image: radial-gradient(ellipse at top left, #7f50e4, #4c05d0);
+  background-image: radial-gradient(ellipse at top left, #e8f09e, #86bab8);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -16,7 +12,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body {
+/* body {
   margin: 0;
   color: #e6ddf9;
-}
+} */

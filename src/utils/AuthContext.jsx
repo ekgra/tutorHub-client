@@ -1,9 +1,12 @@
-import { fireBaseAuth } from '../config/firebase-config';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import axios from 'axios'; // We'll use axios to make HTTP requests
+import axios from 'axios'; 
 
 import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+
+import { fireBaseAuth } from '../config/firebase-config';
+import { decodeJWT } from '../utils/decodeJWT';
 
 const AuthContext = createContext();
 
@@ -11,6 +14,8 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(false);
   const [googleToken, setGoogleToken] = useState('');
   const [appToken, setAppToken] = useState('');
+  const [appAuth, setAppAuth] = useState({});
+  const [googleAuth, setGoogleAuth] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,9 +24,11 @@ const AuthProvider = ({ children }) => {
         const idToken = await userCred.getIdToken();
         handleAuth(idToken);
       } else {
-        setAuth(false);
         setGoogleToken('');
         setAppToken('');
+        setAppAuth({});
+        setGoogleAuth({});
+        setAuth(false);
       }
     });
 
@@ -34,12 +41,14 @@ const AuthProvider = ({ children }) => {
                                         {},
                                         { headers: { Authorization: idToken }
                        });
-      
       const { jwtToken } = response.data;
 
-      setAuth(true);
       setGoogleToken(idToken);
+      setGoogleAuth(decodeJWT(idToken));
       setAppToken(jwtToken);
+      setAppAuth(decodeJWT(jwtToken));
+      setAuth(true);
+
       document.cookie = `token=${jwtToken};path=/;max-age=${4 * 24 * 60 * 60};HttpOnly`; // Set JWT token in HTTP-only cookie
     } catch (error) {
       console.error('Error during authentication with backend:', error);
@@ -65,6 +74,8 @@ const AuthProvider = ({ children }) => {
       setAuth(false);
       setGoogleToken('');
       setAppToken('');
+      setAppAuth({});
+      setGoogleAuth({});
       document.cookie = 'token=;path=/;expires=Thu, 01 Jan 1970 00:00:00 GMT'; // Clear the JWT token
       navigate('/'); // Redirect to home page after logout
     } catch (error) {
@@ -73,7 +84,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ auth, googleToken, appToken, loginWithGoogle, logout }}>
+    <AuthContext.Provider value={{ auth, googleAuth, appAuth, googleToken, appToken, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );
