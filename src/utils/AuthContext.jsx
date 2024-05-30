@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
   const handleAuth = async (idToken) => {
     try {
       const response = await axios.post('http://localhost:3000/api/auth', 
-                                        {},
+                                        {userType: 'student'},
                                         { headers: { Authorization: idToken }
                        });
       const { jwtToken } = response.data;

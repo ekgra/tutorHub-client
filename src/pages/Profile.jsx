@@ -17,6 +17,7 @@ import { AuthContext } from '../utils/AuthContext';
 
 const Profile = () => {
   const { appAuth, appToken } = useContext(AuthContext);
+  const { existingUser, setExistingUser } = useState(false);
   const [formName, setFormName] = useState('ProfileForm');
   const [profile, setProfile] = useState( { name: '',  email: '', phone: '', 
                                             year: '', subjectsInterested: '',
@@ -27,12 +28,13 @@ const Profile = () => {
 
 
   useEffect(() => {
-    if (appAuth) {
+    // if (appAuth) {
       setProfile({
         name: appAuth.name,
         email: appAuth.email
       });
-    }
+    // }
+      
   }, [appAuth]);
 
   const handleChange = async (e) => {
@@ -54,8 +56,6 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      // Replace 'idToken' with your actual authorization token
-      const idToken = 'your-authorization-token';
       const response = await axios.post('http://localhost:3000/api/students', profile, {
         headers: { Authorization: `Bearer ${appToken}` }
       });
@@ -79,8 +79,8 @@ const Profile = () => {
     <Container className="mt-4">
       <h1>Profile Information</h1>
       <Form>
-        <NameField value={profile.name} formName={formName} />
-        <EmailField value={profile.email} formName={formName} />
+        <NameField value={appAuth.name} formName={formName} />
+        <EmailField value={appAuth.email} formName={formName} />
         <PhoneField isEditing={isEditing} value={profile.phone} formName={formName} handleChange={handleChange} />
         <YearField isEditing={isEditing} value={profile.year} formName={formName} handleChange={handleChange} />
         <SubjectsInterestedField isEditing={isEditing} value={profile.subjectsInterested} formName={formName} handleChange={handleChange} />
