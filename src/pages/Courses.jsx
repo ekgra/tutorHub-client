@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 
 const courses = [
   { id: 1, title: 'Course 1' },
@@ -16,6 +16,8 @@ const Courses = () => {
             <Card>
               <Card.Body>
                 <Card.Title>{course.title}</Card.Title>
+                <Card.Text>Course Information</Card.Text>
+                <Button variant="primary">Enroll</Button>
               </Card.Body>
             </Card>
           </Col>
