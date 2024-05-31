@@ -16,48 +16,47 @@ const NavigationBar = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
-      <LinkContainer to="/">
-        <Navbar.Brand> <MdMenuBook size={25}/> TutorHub</Navbar.Brand>
-      </LinkContainer>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <LinkContainer to="/courses">
-            <Nav.Link>Courses</Nav.Link>
-          </LinkContainer>
-          {auth ? (
-              <LinkContainer to="/profile">
-                <Nav.Link>Profile</Nav.Link>
-              </LinkContainer>
-            )
-          : null }
-          <LinkContainer to="/about">
-            <Nav.Link>About</Nav.Link>
-          </LinkContainer>
-        </Nav>
-        
-        <Nav className="ms-auto">
-          {auth ? (
-            <>
-              <LinkContainer to="/myLearning">
-                <Nav.Link>My Learning</Nav.Link>
-              </LinkContainer>
-              <div>
-                <Button variant="outline-light" onClick={logout}><MdLogout size={25} /> Logout</Button>
-                {/* <Container><Navbar.Text className={styles.loginText}>User: {name}</Navbar.Text></Container> */}
-              </div>
-            </>
-            )
-          : (
-              <Button variant="outline-light" onClick={loginWithGoogle}>
-                <img className= {styles.loginButtonImage} src={googleIcon}/> 
-                Login with Google
-              </Button>
-            ) 
-          }
-        </Nav>
-
-      </Navbar.Collapse>
+        <LinkContainer className='ms-2' to="/">
+          <Navbar.Brand> <MdMenuBook size={25}/> TutorHub</Navbar.Brand>
+        </LinkContainer>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <LinkContainer to="/courses">
+              <Nav.Link>Courses</Nav.Link>
+            </LinkContainer>
+            {auth ? (
+                <LinkContainer to="/profile">
+                  <Nav.Link>Profile</Nav.Link>
+                </LinkContainer>
+              )
+            : null }
+            <LinkContainer to="/about">
+              <Nav.Link>About</Nav.Link>
+            </LinkContainer>
+          </Nav>
+          
+          <Nav className="ms-auto">
+            {auth ? (
+              <>
+                <LinkContainer to="/myLearning">
+                  <Nav.Link>My Learning</Nav.Link>
+                </LinkContainer>
+                <div >
+                  <Button className='me-2' variant="outline-light" onClick={logout}><MdLogout size={25} /> Logout</Button>
+                  {/* <Container><Navbar.Text className={styles.loginText}>User: {name}</Navbar.Text></Container> */}
+                </div>
+              </>
+              )
+            : (
+                <Button className='me-2' variant="outline-light" onClick={loginWithGoogle}>
+                  <img className= {styles.loginButtonImage} src={googleIcon}/> 
+                  Login with Google
+                </Button>
+              ) 
+            }
+          </Nav>
+        </Navbar.Collapse>
     </Navbar>
   );
 };

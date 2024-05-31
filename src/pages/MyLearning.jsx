@@ -1,4 +1,4 @@
-import styles from './Homepage.module.css';
+import styles from './MyLearning.module.css';
 // import { Container, Button } from 'react-bootstrap';
 
 // import { useState, useEffect, useContext } from 'react';
@@ -10,7 +10,9 @@ import styles from './Homepage.module.css';
 const MyLearning = () => {
 
     return (
-      <h1>No courses registered yet</h1>
+      <div className={styles.content}>
+      <h1  className={styles.text}>No courses registered yet</h1>
+      </div>
     );
 };
 

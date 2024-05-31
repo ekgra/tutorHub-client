@@ -16,8 +16,7 @@ import CityField from '../components/ProfileForm/CityField';
 import { AuthContext } from '../utils/AuthContext';
 
 const Profile = () => {
-  const { appAuth, appToken } = useContext(AuthContext);
-  const { existingUser, setExistingUser } = useState(false);
+  const { auth, appAuth, appToken } = useContext(AuthContext);
   const [formName, setFormName] = useState('ProfileForm');
   const [profile, setProfile] = useState( { name: '',  email: '', phone: '', 
                                             year: '', subjectsInterested: '',
@@ -27,15 +26,20 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
 
+  const getLatestProfile = async (email) => {
+    const updatedProfile = await axios.get(`http://localhost:3000/api/students/${email}`, {
+      headers: { Authorization: `Bearer ${appToken}` }
+    });
+    setProfile(updatedProfile.data);
+  }
+
   useEffect(() => {
-    // if (appAuth) {
-      setProfile({
-        name: appAuth.name,
-        email: appAuth.email
-      });
-    // }
-      
-  }, [appAuth]);
+    setProfile({
+      name: appAuth.name,
+      email: appAuth.email
+    });
+    if (auth) { getLatestProfile(appAuth.email) };
+  }, [auth, appAuth]);
 
   const handleChange = async (e) => {
     const { name, value } = e.target;
@@ -60,6 +64,7 @@ const Profile = () => {
         headers: { Authorization: `Bearer ${appToken}` }
       });
       console.log('Profile saved:', response.data);
+      setProfile(profile);
       setIsEditing(false);
     } catch (error) {
       console.error('Error saving profile:', error);
@@ -101,9 +106,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-// const response = await axios.post('http://localhost:3000/api/students', 
-// profile,
-// { headers: { Authorization: idToken }
-// });
